@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,16 +20,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var subtitleAnimation: Animation
 
     private lateinit var logoView: ImageView
-    private lateinit var textView: ImageView
-    private lateinit var subtitleView: ImageView
+    private lateinit var textView: TextView
+    private lateinit var subtitleView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
-
-        val actionBar = supportActionBar
-        actionBar!!.hide()
 
         logoAnimation = AnimationUtils.loadAnimation(this, R.anim.logo_animation)
         textAnimation = AnimationUtils.loadAnimation(this, R.anim.text_animation)

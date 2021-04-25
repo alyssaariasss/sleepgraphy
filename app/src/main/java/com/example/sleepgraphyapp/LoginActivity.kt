@@ -1,14 +1,26 @@
 package com.example.sleepgraphyapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val actionBar = supportActionBar
-        actionBar!!.title = "Login Activity"
+        val login_button = findViewById<Button>(R.id.login_button)
+        val sign_button = findViewById<Button>(R.id.sign_button)
+
+        login_button.setOnClickListener{
+            val intent = Intent(this, LoginPage::class.java)
+            startActivity(intent)
+        }
+
+        sign_button.setOnClickListener{
+            val intent = Intent(this, SignupPage::class.java)
+            startActivity(intent)
+        }
     }
 }
