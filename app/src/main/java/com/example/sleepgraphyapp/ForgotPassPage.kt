@@ -12,7 +12,7 @@ class ForgotPassPage : AppCompatActivity() {
 
         val back_button = findViewById<ImageView>(R.id.back)
         back_button.setOnClickListener{
-            val intent = Intent(this, LoginPage::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
 
