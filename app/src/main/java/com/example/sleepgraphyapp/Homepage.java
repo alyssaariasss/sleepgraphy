@@ -28,13 +28,10 @@ public class Homepage extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
 
-        button_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auth.signOut();
-                Toast.makeText(Homepage.this, "Logout successful.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Homepage.this, LoginActivity.class));
-            }
+        button_logout.setOnClickListener(v -> {
+            auth.signOut();
+            Toast.makeText(Homepage.this, "Logout successful.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Homepage.this, LoginActivity.class));
         });
     }
 
