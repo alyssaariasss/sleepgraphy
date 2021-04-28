@@ -2,7 +2,6 @@ package com.example.sleepgraphyapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,12 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
@@ -42,65 +37,42 @@ public class Login extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.GONE);
 
-        button_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        button_login.setOnClickListener(v -> {
 
-                email = email_txt.getText().toString().trim();
-                password = pass_txt.getText().toString().trim();
+            email = email_txt.getText().toString().trim();
+            password = pass_txt.getText().toString().trim();
 
-                if (email.isEmpty()) {
-                    email_txt.setError("Email address is required.");
-                    email_txt.requestFocus();
-                    return;
+            if (email.isEmpty()) {
+                email_txt.setError("Email address is required.");
+                email_txt.requestFocus();
+                return;
+            }
+
+            if (password.isEmpty()) {
+                pass_txt.setError("Password is required.");
+                pass_txt.requestFocus();
+                return;
+            }
+
+            progressBar.setVisibility(View.VISIBLE);
+
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+
+                progressBar.setVisibility(View.GONE);
+
+                if (task.isSuccessful()) {
+                    Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Login.this, Homepage.class));
+                    finish();
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(Login.this, "Incorrect email and/or password. Please try again.", Toast.LENGTH_LONG).show();
                 }
-
-                if (password.isEmpty()) {
-                    pass_txt.setError("Password is required.");
-                    pass_txt.requestFocus();
-                    return;
-                }
-
-                //    progressbar VISIBLE
-                progressBar.setVisibility(View.VISIBLE);
-
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //    progressbar GONE
-                        progressBar.setVisibility(View.GONE);
-                        if (task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Login.this, Homepage.class));
-                            finish();
-                        } else {
-
-                            //    progressbar GONE
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                });
-            }
-
+            });
         });
 
-        //        handle forgot button
-        button_frgtpass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ForgotPassPage.class);
-                startActivity(intent);
-            }
-        });
+        button_frgtpass.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ForgotPass.class)));
 
-
-        button_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login.this, LoginActivity.class));
-            }
-        });
+        button_back.setOnClickListener(v -> startActivity(new Intent(Login.this, LoginActivity.class)));
     }
 }

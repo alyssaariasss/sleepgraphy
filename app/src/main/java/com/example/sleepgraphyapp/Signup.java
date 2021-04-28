@@ -10,12 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -43,55 +39,41 @@ public class Signup extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
-        button_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!CheckName() | !CheckAge() | !CheckGender() | !CheckEmail() | !CheckPass()) {
-                    return;
-                }
+        button_next.setOnClickListener(v -> {
+            if (!CheckName() | !CheckAge() | !CheckGender() | !CheckEmail() | !CheckPass()) {
+                return;
+            }
 
-                progressBar.setVisibility(View.VISIBLE);
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+            progressBar.setVisibility(View.VISIBLE);
 
-                            // stores user attributes to db
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
 
-                            User data = new User(name, age, gender, email);
+                    // stores user attributes to db
 
-                            FirebaseDatabase.getInstance().getReference("UserData")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(data).
-                                    addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
+                    User data = new User(name, age, gender, email);
 
-                                    progressBar.setVisibility(View.GONE);
+                    FirebaseDatabase.getInstance().getReference("UserData")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(data).
+                            addOnCompleteListener(task1 -> {
 
-                                    Toast.makeText(Signup.this, "Registered successfully.", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Signup.this, Assessment.class);
-                                    startActivity(intent);
-                                    finish();
+                                progressBar.setVisibility(View.GONE);
 
-                                }
+                                Toast.makeText(Signup.this, "Registered successfully.", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(Signup.this, Assessment.class));
+                                finish();
+
                             });
 
-                        } else {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(Signup.this, "Email is already registered.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(Signup.this, "Email is already registered.", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            }
         });
 
-        button_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Signup.this, LoginActivity.class));
-            }
-        });
+        button_back.setOnClickListener(v -> startActivity(new Intent(Signup.this, LoginActivity.class)));
 
     }
 
@@ -156,8 +138,7 @@ public class Signup extends AppCompatActivity {
         super.onStart();
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Intent intent = new Intent(Signup.this, Homepage.class);
-            startActivity(intent);
+            startActivity(new Intent(Signup.this, Homepage.class));
         }
     }
 
