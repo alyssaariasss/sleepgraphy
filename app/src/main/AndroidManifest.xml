@@ -14,14 +14,10 @@
         <activity android:name=".Homepage" />
         <activity android:name=".Assessment" />
         <activity android:name=".Signup" />
-        <activity android:name=".ForgotPassPage" />
-        <activity android:name=".SignupPage" />
-        <activity android:name=".LoginPage" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

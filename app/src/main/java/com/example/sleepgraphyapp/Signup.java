@@ -58,8 +58,6 @@ public class Signup extends AppCompatActivity {
                             addOnCompleteListener(task1 -> {
 
                                 progressBar.setVisibility(View.GONE);
-
-                                Toast.makeText(Signup.this, "Registered successfully.", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(Signup.this, Assessment.class));
                                 finish();
 

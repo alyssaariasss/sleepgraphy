@@ -2,7 +2,7 @@ package com.example.sleepgraphyapp;
 
 public class User {
 
-    public String Fullname,Age,Gender, EmailId;
+    public String Fullname, Age, Gender, EmailId;
 
     public User(){
 
