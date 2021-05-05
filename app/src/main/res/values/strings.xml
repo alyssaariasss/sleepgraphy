@@ -17,6 +17,17 @@
     <string name = "fourth_choice">Depends if school nights or weekends</string>
     <string name = "fifth_choice">Depends on my mood</string>
 
+    <!-- Sub-heading Text -->
+
+    <string name = "welcome_page">Sleepgraphy app is designed to help you monitor your sleeping patterns.
+        Before we get started, please login or sign up to continue.</string>
+    <string name = "login_page">To keep tracking your sleep, please login using your personal information.</string>
+    <string name = "signup_page">Let\'s get you all set up so you can start exploring the app.</string>
+    <string name = "forgotpass_page">Please enter your registered email address and we\'ll send you a link
+        to reset your password.</string>
+    <string name = "assess_page">Now let\'s get to know you and your sleeping habits to validate your sign
+        up request.</string>
+
     <!-- Buttons -->
 
     <string name = "submit_btn">Submit</string>

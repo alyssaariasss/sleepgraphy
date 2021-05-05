@@ -63,7 +63,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/arial_nova_light"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo."
+        android:text="@string/assess_page"
         android:textColor="@color/subtitle"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
